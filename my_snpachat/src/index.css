@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #ffc107;
+  background-color: rgb(99, 175, 219);
 }
 
 code {
@@ -13,13 +13,32 @@ code {
     monospace;
 }
 
-.forminscri {
-  padding: 10px;
-  margin: 10px;
-  border-radius: 4px;
-  background-color: rgba(0, 0, 0, 0.3);
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
 }
 
-.white {
-  color: white !important;
+.labelfile {
+  border-radius: 5px;
+  padding: 0 8px 0 8px;
+  color: white;
+  background-color: rgb(255, 153, 0);
+}
+
+.labelfile:active {
+  background-color: rgb(0, 0, 0);
+}
+
+.sendsnap {
+  font-size: 40px;
+  border: 0;
+  border-radius: 50%;
+  padding: 1px 12px 4px 5px;
+  margin: 20px;
+  color: rgb(255, 153, 0);
+  background-color: white;
 }
