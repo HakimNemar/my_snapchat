@@ -8,13 +8,13 @@ function LoginIndex(props) {
 
     function handleImg(data) {
         setMyImage(data);
-        // console.log(data);
+        console.log(data);
         console.log(myImage);
     }
     // console.log(myImage);
 
     function handleChoice(choice) {
-        choice = choice === 'snaped' ? <SendSnap handleClick={handleChoice} handleSend={handleSend} handleImg={myImage}/> : <ChoiceSnap />;
+        choice = choice === 'snaped' ? <SendSnap handleClick={handleChoice} handleSend={handleSend} /> : <ChoiceSnap handleClick={handleChoice} handleImg={handleImg}/>;
         setIsCliqued(choice);
     }
 
