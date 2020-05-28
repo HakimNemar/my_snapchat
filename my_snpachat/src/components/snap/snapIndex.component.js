@@ -2,24 +2,18 @@ import React, { useState } from 'react';
 import SendSnap from './sendSnap.component';
 import ChoiceSnap from './choiceSnap.component';
 
-function LoginIndex(props) {
+function SnapIndex(props) {
     const [isCliqued, setIsCliqued] = useState(false);
     const [myImage, setMyImage] = useState(null);
 
     function handleImg(data) {
         setMyImage(data);
-        console.log(data);
-        console.log(myImage);
+        setIsCliqued(<SendSnap handleClick={handleChoiceImg} imageFile={data} />)
     }
-    // console.log(myImage);
 
-    function handleChoice(choice) {
-        choice = choice === 'snaped' ? <SendSnap handleClick={handleChoice} handleSend={handleSend} /> : <ChoiceSnap handleClick={handleChoice} handleImg={handleImg}/>;
+    function handleChoiceImg(choice) {
+        choice = choice === 'snaped' ? <SendSnap handleClick={handleChoiceImg} /> : <ChoiceSnap handleClick={handleChoiceImg} handleImg={handleImg}/>;
         setIsCliqued(choice);
-    }
-
-    function handleSend(data) {
-        // console.log(data);
     }
 
     return (
@@ -29,10 +23,10 @@ function LoginIndex(props) {
                 <h1 className="text-center">Take a Snap</h1>
             </div>
             <div className="d-flex flex-column justify-content-center vh-100">
-                {isCliqued || <ChoiceSnap handleClick={handleChoice} handleImg={handleImg}/>}
+                {isCliqued || <ChoiceSnap handleClick={handleChoiceImg} handleImg={handleImg}/>}
             </div>
         </div>
     );
 }
 
-export default LoginIndex;
+export default SnapIndex;
