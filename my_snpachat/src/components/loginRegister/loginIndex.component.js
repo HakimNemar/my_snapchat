@@ -2,25 +2,45 @@ import React, { useState } from 'react';
 import Login from './login/login.component';
 import Register from './register/register.component';
 import ChoiceButtons from './choiceButtons.component';
+import { postRegister, postLogin } from '../../utils/axiosAPI';
+import Cookies from 'js-cookie';
 
 function LoginIndex(props) {
     const [selectedPage, setSelectedPage] = useState(false);
 
     function handleChoice(choice) {
-        choice = choice === 'register' ? <Register handleSubmit={handleRegister} handleClick={handleChoice}/> : <Login handleSubmit={handleLogin} handleClick={handleChoice}/>;
-        setSelectedPage(choice);
+        if (choice === 'register') {
+            setSelectedPage(<Register handleSubmit={handleRegister} handleClick={handleChoice} />);
+        } else {
+            setSelectedPage(<Login handleSubmit={handleLogin} handleClick={handleChoice} />);
+        }
     }
 
     function handleRegister(data) {
-        console.log('OMEGALUL');
-        
-        // console.log(formControl);
+        setSelectedPage(<Register handleSubmit={handleRegister} handleClick={handleChoice} errorMessage={null}/>);
+
+        postRegister(data.email, data.password)
+            .then(() => {
+                setSelectedPage(<Login handleSubmit={handleLogin} handleClick={handleChoice} loginEmail={data.email} registered={true}/>)
+            })
+            .catch(() => {
+                setSelectedPage(<Register handleSubmit={handleRegister} handleClick={handleChoice} errorMessage={'Email already taken.'}/>);
+            });
     }
 
     function handleLogin(data) {
-        console.log('OMEGALOGIN');
-        
-        // console.log(formControl);
+        setSelectedPage(<Login handleSubmit={handleLogin} handleClick={handleChoice} loginEmail={data.email} errorMessage={null}/>)
+        postLogin(data.email, data.password)
+            .then(res => {
+                Cookies.set('user', {email: res.data.data.email, token:res.data.data.token}, { expires: 7 })
+                // Cookies.set('userToken', res.data.data.token, { expires: 7 });
+                // Cookies.set('userEmail', res.data.data.email, { expires: 7 });
+                //if connected, change page state in appjs
+                props.handleLogin(res.data.data.email);
+            })
+            .catch(() => {
+                setSelectedPage(<Login handleSubmit={handleLogin} handleClick={handleChoice} loginEmail={data.email} errorMessage={'Incorrect email or password.'}/>)
+            });
     }
 
     return (
@@ -30,7 +50,7 @@ function LoginIndex(props) {
                 <h1 className="text-center">Our Snapchat</h1>
             </div>
             <div className="d-flex flex-column justify-content-center vh-100">
-                {selectedPage || <ChoiceButtons handleClick={handleChoice}/>}
+                {selectedPage || <ChoiceButtons handleClick={handleChoice} />}
             </div>
         </div>
     );
