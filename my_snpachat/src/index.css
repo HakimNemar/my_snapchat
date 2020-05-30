@@ -5,13 +5,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(99, 175, 219);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* ----- css Hakim ----- */
 
 .inputfile {
 	width: 0.1px;
@@ -67,8 +68,9 @@ code {
 }
 
 .apercuSnap {
-  width: 100%;
-  margin-bottom: 50px;
+  width: 15rem;
+  display: block;
+  margin: 0 auto 50px auto;
 }
 
 #selectDuration {

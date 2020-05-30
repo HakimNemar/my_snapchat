@@ -3,7 +3,6 @@ import React from 'react';
 function ChoiceImage(props) {
 
     function getImage(e) {
-        // props.handleClick('snaped');
         props.handleImg(e.target.files[0]);
     }
 
